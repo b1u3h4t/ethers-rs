@@ -93,7 +93,9 @@ impl Client {
             Chain::Arbitrum |
             Chain::ArbitrumTestnet |
             Chain::Cronos |
-            Chain::CronosTestnet => std::env::var("ETHERSCAN_API_KEY")?,
+            Chain::CronosTestnet |
+            Chain::BitTorrentChain |
+            Chain::BitTorrentChainTestnet => std::env::var("ETHERSCAN_API_KEY")?,
             Chain::Fantom | Chain::FantomTestnet => {
                 std::env::var("FTMSCAN_API_KEY").or_else(|_| std::env::var("FANTOMSCAN_API_KEY"))?
             }
@@ -267,6 +269,12 @@ impl ClientBuilder {
             }
             Chain::Moonriver => {
                 urls("https://api-moonriver.moonscan.io/api", "https://moonriver.moonscan.io")
+            }
+            Chain::BitTorrentChain => {
+                urls("https://api.bttcscan.com/api", "https://bttcscan.com")
+            }
+            Chain::BitTorrentChainTestnet => {
+                urls("https://api-testnet.bttcscan.com/api", "https://testnet.bttcscan.com")
             }
             Chain::Dev => return Err(EtherscanError::LocalNetworksNotSupported),
             chain => return Err(EtherscanError::ChainNotSupported(chain)),

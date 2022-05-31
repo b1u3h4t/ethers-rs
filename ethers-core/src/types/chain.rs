@@ -44,6 +44,10 @@ pub enum Chain {
     BinanceSmartChain = 56,
     #[strum(serialize = "bsc-testnet")]
     BinanceSmartChainTestnet = 97,
+    #[strum(serialize = "bttc")]
+    BitTorrentChain = 199,
+    #[strum(serialize = "bttc-testnet")]
+    BitTorrentChainTestnet = 1029,
 }
 
 impl fmt::Display for Chain {
@@ -74,6 +78,8 @@ impl fmt::Display for Chain {
             Chain::ArbitrumTestnet => "arbitrum-testnet",
             Chain::Cronos => "cronos",
             Chain::CronosTestnet => "cronos-testnet",
+            Chain::BitTorrentChain => "bttc",
+            Chain::BitTorrentChainTestnet => "bttc-testnet",
         };
 
         write!(formatter, "{}", chain)
@@ -128,6 +134,8 @@ impl TryFrom<u64> for Chain {
             421611 => Chain::ArbitrumTestnet,
             25 => Chain::Cronos,
             338 => Chain::CronosTestnet,
+            199 => Chain::BitTorrentChain,
+            1029 => Chain::BitTorrentChainTestnet,
             _ => return Err(ParseChainError(chain.to_string())),
         })
     }
@@ -173,6 +181,8 @@ impl FromStr for Chain {
             "arbitrum-testnet" => Chain::ArbitrumTestnet,
             "cronos" => Chain::Cronos,
             "cronos-testnet" => Chain::CronosTestnet,
+            "bttc" => Chain::BitTorrentChain,
+            "bttc-testnet" => Chain::BitTorrentChainTestnet,
             _ => return Err(ParseChainError(chain.to_owned())),
         })
     }
@@ -192,7 +202,9 @@ impl Chain {
                 Chain::BinanceSmartChain |
                 Chain::BinanceSmartChainTestnet |
                 Chain::Arbitrum |
-                Chain::ArbitrumTestnet,
+                Chain::ArbitrumTestnet |
+                Chain::BitTorrentChain |
+                Chain::BitTorrentChainTestnet,
         )
     }
 }
